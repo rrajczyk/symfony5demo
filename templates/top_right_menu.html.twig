@@ -1,0 +1,39 @@
+{% if app.user %}
+    <span class="pr-3">{{ "Witaj"|trans }} {{ app.user.name }} !</span>
+
+    <a href="?_locale=pl"><img src="{{  asset('images/poland.png')  }}" class="img-fluid" alt="polish" ></a>
+    <a href="?_locale=en"><img src="{{  asset('images/british.png')  }}" class="img-fluid" alt="english" ></a>
+
+    {% if (app.user.userType.id == 1) %}
+       <a href="{{ path ("_admin_home") }}"><span class="btn btn-warning">{{ "Admin"|trans }} </span></a>
+    {% endif %}
+
+    {% if (app.user.userType.id == 2) %}
+       <a href="{{ path ("_departament_home") }}"><span class="btn btn-warning">{{ "System"|trans }}</span></a>
+    {% endif %}
+
+    {% if (app.user.userType.id == 3) %}
+       <a href="{{ path ("_conservator_home") }}"><span class="btn btn-warning">{{ "System"|trans }}</span></a>
+    {% endif %}
+
+    {% if (app.user.userType.id == 1) %}
+        <a href="{{ path ("_admin_home") }}"><span class="btn btn-warning">{{ "System"|trans }}</span></a>
+    {% endif %}
+
+    {% if (app.user.userType.id == 4) %}
+        <a href="{{ path ("_superadmin_home") }}"><span class="btn btn-warning">{{ "System"|trans }}</span></a>
+    {% endif %}
+
+    {% if ((app.user.userType.id != 1) and (app.user.userType.id != 4)) %}
+        <a href="{{ path ("_user_edit") }}"><span class="btn btn-warning">{{ "Edycja profilu"|trans }}</span></a>
+    {% endif %}
+
+    <a href="{{ path('app_logout') }}"><span class="btn btn-warning">{{ "Wyloguj się"|trans }}</span></a>
+
+{% else %}
+
+    <a href="?_locale=pl"><img src="{{  asset('images/poland.png')  }}" class="img-fluid" alt="polish" ></a>
+    <a href="?_locale=en"><img src="{{  asset('images/british.png')  }}" class="img-fluid" alt="english" ></a>
+
+    <a href="{{ path ("app_login") }}"><span class="btn btn-warning">{{ "Zaloguj się"|trans }}</span></a>
+{% endif %}

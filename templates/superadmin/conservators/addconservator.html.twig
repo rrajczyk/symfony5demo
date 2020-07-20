@@ -1,0 +1,96 @@
+{% extends "layout_admin.html.twig" %}
+
+{% block titletop %}
+    {{ "Dodaj Użytkownika"|trans }}
+{% endblock %}
+
+{% block content %}
+
+{{ form_start(form) }}
+
+    <div class="py-3  border-bottom">
+        {% include '/line_back_save_menu.html.twig' %}
+    </div>
+
+    <div class="pb-5">
+        <div class="row my-4">
+            <div class="col-4 text-right">
+                {{ "Login"|trans }}
+            </div>
+            <div class="col-8">
+                {{ form_widget(form.username) }}
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-4 text-right">
+                {{ "Hasło"|trans }}
+            </div>
+            <div class="col-8">
+                {{ form_widget(form.pass.first) }}
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-4 text-right">
+                {{ "Powtórz Hasło"|trans }}
+            </div>
+            <div class="col-8">
+                {{ form_widget(form.pass.second) }}
+            </div>
+        </div>
+
+
+        <div class="row my-4">
+            <div class="col-4 text-right">
+                {{ "Imię i nazwisko"|trans }}
+            </div>
+            <div class="col-8">
+                {{ form_widget(form.name) }}
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-4 text-right">
+                {{ "Adres"|trans }}
+            </div>
+            <div class="col-8">
+                {{ form_widget(form.address) }}
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-4 text-right">
+                {{ "Emails"|trans }}
+            </div>
+            <div class="col-8">
+                {{ form_widget(form.emails) }}
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-4 text-right">
+                {{ "Telefon"|trans }}
+            </div>
+            <div class="col-8">
+                {{ form_widget(form.phone) }}
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-4 text-right">
+                {{ "Zdjęcie"|trans }}
+            </div>
+            <div class="col-8">
+                {{ form_errors (form.avatar) }}
+                {{ form_widget(form.avatar) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="py-3 border-top border-bottom">
+        {% include '/line_back_save_menu.html.twig' %}
+    </div>
+{{ form_end(form) }}
+
+{% endblock %}

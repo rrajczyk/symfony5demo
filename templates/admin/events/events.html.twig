@@ -1,0 +1,68 @@
+{% extends "layout_admin.html.twig" %}
+
+{% block titletop %}
+    {{ "Wydarzenia"|trans }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="py-3 border-bottom">
+        {% include '/line_none_add_menu.html.twig' with {'route': '_admin_add_event'} %}
+    </div>
+
+     <div class="py-3 ">
+        <div class="row">
+            <div class="col-md-4">
+                <small>{{ "Skasowane"|trans }}</small>
+                <select id="deleted" class= "form-control reload" style="width:100%; min-height:40px;">
+
+                    <option value="0">{{ "Nie"|trans }}</option>
+                    <option value="1">{{ "Tak"|trans }}</option>
+                    <option value="all">{{ "Wszystkie"|trans }}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <small>{{ "Sortowanie"|trans }}</small>
+                <select id="sort" class= "form-control reload" style="width:100%; min-height:40px;">
+                    <option value="last">{{ "Ostatnie"|trans }}</option>
+                    <option value="priority_hight">{{ "Najważniejszy Priorytet"|trans }}</option>
+                    <option value="priority_low">{{ "Najniższy Priorytet"|trans }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <small>{{ "Użytkownicy"|trans }}</small>
+                <select id="department" class= "form-control reload" style="width:100%; min-height:40px;">
+                    <option value="">{{ "Wszyscy"|trans }}</option>
+                    {% for userObj in users %}
+                        <option value="{{ userObj.id }}">{{ userObj.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    {% include '/others/spinner.html.twig'  %}
+
+    <div class="" id="eventsList">
+
+    </div>
+
+    <div class="py-3 border-bottom">
+        {% include '/line_none_add_menu.html.twig' with {'route': '_admin_add_event'} %}
+    </div>
+
+   <input id="fooRoute" type="hidden" value="adminevents">
+   <input id="fooId" type="hidden" value="1">
+
+<script language = "javascript">
+  $(document).ready(function(){
+        ReloadAdminDepartmentEvents();
+
+        $(".reload").on("change", function( e ){
+            ReloadAdminDepartmentEvents();
+        });
+  });
+</script>
+{% endblock %}

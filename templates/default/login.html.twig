@@ -1,0 +1,41 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="text-center p-5 module-news"  >
+        <h1>Zaloguj się do systemu </h1>
+    </div>
+
+    <div class="  pb-5">
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4">
+				<form action=" " method="post" id="login">
+                    <div class="input-group input-group-lg">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Login</span>
+                      </div>
+                      <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="username" name="_username">
+                    </div>
+
+                    <div class="input-group input-group-lg mt-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Hasło</span>
+                      </div>
+                      <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="password" name="_password">
+                    </div>
+
+                    <div class=" mt-3 text-center">
+                         <button class="btn btn-danger btn-lg">Wyślij</button>
+                    </div>
+				</form>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <div class="text-center p-5 module-news">
+        <h1>{{ "Zaloguj się do systemu"|trans }}</h1>
+    </div>
+
+    <div class="  pb-5">
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4">
+				<form method="post">
+                    <div class="input-group input-group-lg">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">{{ "Login"|trans }}</span>
+                      </div>
+                      <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="inputUsername" name="username">
+                    </div>
+
+                    <div class="input-group input-group-lg mt-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">{{ "Hasło"|trans }}</span>
+                      </div>
+                      <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="inputPassword" name="password">
+                    </div>
+                        <input type="hidden" name="_csrf_token"value="{{ csrf_token('authenticate') }}">
+                    <div class=" mt-3 text-center">
+                         <button class="btn btn-warning btn-lg" type="submit">{{ "Wyślij"|trans }}</button>
+                    </div>
+				</form>
+            </div>
+            <div class="col-md-4 text-right">
+                {{ "Konserwator"|trans }}: cons / cons<br>
+                {{ "Admin"|trans }}: admin / admin<br>
+                {{ "Superadmin"|trans }}: thanos / thanos<br>
+            </div>
+        </div>
+    </div>
+
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+
+{% endblock %}

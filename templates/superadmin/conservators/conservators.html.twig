@@ -1,0 +1,75 @@
+{% extends "layout_admin.html.twig" %}
+
+{% block titletop %}
+    {{ "Użytkownicy"|trans }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="py-3  border-bottom">
+        {% include '/line_none_add_menu.html.twig' with {'route': '_superadmin_conservator_add'} %}
+    </div>
+
+     <div class="py-3 border-top border-bottom">
+        <div class="row">
+            <div class="col">
+                {{ "Data początkowa"|trans }}
+                <input id="datetimepicker1" class="form-control " value="" />
+            </div>
+            <div class="col">
+                {{ "Data końcowa"|trans }}
+                <input id="datetimepicker2" class="form-control " value=""  />
+            </div>
+            <div class="col">
+                {{ "Sortowanie"|trans }}
+                <select id="sort" class= "form-control reload" style="width:100%; min-height:40px;">
+                    <option value="name">{{ "Nazwa"|trans }}</option>
+                    <option value="done_hight">{{ "Najwięcej wydarzeń"|trans }}</option>
+                    <option value="done_low">{{ "Najmniej wydarzeń"|trans }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    {% include '/others/spinner.html.twig'  %}
+
+    <div class="" id="eventsList">
+
+    </div>
+
+    <div class="py-3 border-top border-bottom">
+        {% include '/line_none_add_menu.html.twig' with {'route': '_superadmin_conservator_add'} %}
+    </div>
+
+<script language = "javascript">
+  $(document).ready(function(){
+
+         $('#datetimepicker1').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'yyyy-mm-dd',
+            value: '{{ dateStart }}',
+            close: function (e) {
+                ReloadAdminConservators();
+            }
+        });
+
+         $('#datetimepicker2').datepicker({
+            uiLibrary: 'bootstrap4',
+            useCurrent: false,
+            format: 'yyyy-mm-dd',
+            value: '{{ dateEnd }}',
+            close: function (e) {
+
+                ReloadAdminConservators();
+            }
+        });
+
+        ReloadAdminConservators();
+
+        $(".reload").on("change", function( e ){
+            ReloadAdminConservators();
+        });
+  });
+</script>
+
+{% endblock %}

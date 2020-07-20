@@ -1,0 +1,133 @@
+body{
+    font-size:16px;
+}
+
+.btn-info {
+    background-color: #00aeef;
+}
+
+.btn-info:hover {
+    background-color: #464f75;
+}
+
+.btn-dark {
+    background-color: #464f75;
+}
+
+.bg-dark{
+    color:#FFFFFF;
+    background-color: #464f75 !important;
+}
+
+.mt-6, .my-6 {
+    margin-top: 5.5rem !important;
+}
+
+.mt-10, .my-10 {
+    margin-top: 10rem !important;
+}
+
+.my-7 {
+    margin-top: 7rem !important;
+    margin-bottom: 7rem !important;
+}
+
+.module-title {
+    font-family: Poppins,sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: -.6px;
+    /*text-align: center;*/
+    color: #464f75;
+}
+
+.module-title a{
+    text-decoration: none;
+    color: #464f75;
+}
+
+a.nodecoration{
+    text-decoration: none;
+}
+
+.fullwidth{
+    width: 100%;
+}
+
+.double_lines {
+    border-top: double 4px;
+    border-bottom: double 4px;
+}
+
+.module-news h1 {
+   font-family: Poppins,sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: -.6px;
+    text-align: center;
+    color: #464f75;
+    margin: 0px;
+}
+
+.module-news__article h3 {
+    font-family: Poppins,sans-serif;
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.33;
+    letter-spacing: -.3px;
+    color: #464f75;
+}
+
+.navigation .page-item.active .page-link{
+
+    color: #fff;
+    background-color: #000000;
+    border-color: #000000;;
+}
+
+.navigation .page-link{
+
+    color: #000000;
+}
+
+.bg-danger {
+	background-color: #c82333 !important;
+	color: #fff;
+}
+
+@media only screen and (max-width: 992px) {
+
+    #main.container, #main.container-md, #main.container-sm {
+        max-width: 100%;
+    }
+
+    .btn.optionRow{
+         font-size:12px;
+    }
+
+    .row{
+        font-size:12px;
+    }
+
+    .optionRow .btn{
+         padding:2px;
+    }
+
+}
+
+@media only screen and (max-width: 576px) {
+
+    .pb-3, .py-3{
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    .optionRow .btn {
+         font-size:10px;
+    }
+    .row{
+        font-size:10px;
+    }
+}

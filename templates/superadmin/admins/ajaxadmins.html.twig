@@ -1,0 +1,78 @@
+{% extends "layout_none.html.twig" %}
+
+{% block content %}
+
+    {% if admins|length != 0 %}
+        <div class="py-3 navigation">
+            {{ knp_pagination_render(admins) }}
+        </div>
+    {% endif %}
+
+    <div class="my-3 pb-5">
+        {% if admins|length == 0 %}
+            <div class="py-3 border-top border-bottom text-center">{{ "Brak Administratorów"|trans}}</div>
+        {% else %}
+            {% for adminsArr in admins %}
+
+                {% set admin = adminsArr[0] %}
+
+                <div class="border-bottom py-2 {% if loop.index is divisible by(2) %}bg-light{% else %}odd{% endif %}">
+
+                    <div class="row">
+                        <div class="col-2 pt-2 "><img src="{{ userAvatar( admin ) }}" class="img-fluid" alt=""></div>
+                        <div class="col-md-8 pt-2 ">
+                            <div class="module-title">
+                                {{ admin.name }}
+                            </div>
+                            <div class=""> <small>{{ admin.address }}</small></div>
+                            <div class="row">
+                                <div class="col pt-2 ">
+                                    <div class=" pt-2 ">{{ "Login"|trans}}: {{ admin.username }}</div>
+                                    <div class=" pt-2 ">{{ "Emails"|trans}}: {{ admin.emails }}</div>
+                                    <div class=" pt-2 ">{{ "Telefon"|trans}}: {{ admin.phone }}</div>
+                                    <div class=" pt-2 ">{{ "Dodano"|trans}}: {% if admin.dateCreated %} {{ admin.dateCreated|date("d-m-Y H:i") }}  {% endif %}</div>
+                                    <div class=" pt-2 ">{{ "Ostatnie logowanie"|trans}}: {% if admin.dateLogin %} {{ admin.dateLogin|date("d-m-Y H:i") }} {% endif %}</div>
+                                </div>
+                                <div class=" ">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 pt-2 text-right">
+                            <a href="{{ path ("_superadmin_admin_edit", {admin: admin.id  } ) }}" class="nodecoration"><span class="btn btn-dark  btn-block my-1">{{ "Edycja"|trans}}</span></a>
+
+                            <a href="{{ path ("_superadmin_admin_delete", {admin: admin.id }) }}" class="nodecoration" onclick="return confirm('Na pewno Skasować ?')"><span class="btn btn-warning btn-block my-1">{{ "Skasuj"|trans}}</span></a>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {% if admins|length != 0 %}
+        <div class="py-3 navigation">
+            {{ knp_pagination_render(admins) }}
+        </div>
+    {% endif %}
+
+    <input type="hidden" value="{{ page }}" id="page"/>
+
+
+<script language = "javascript">
+
+  $(document).ready(function(){
+
+        $("ul.pagination a").on("click", function( e ){
+
+            var pageNum = $(this).data("page");
+            $('#page').val(pageNum);
+
+            ReloadAdminAdmins();
+            e.preventDefault();
+        });
+  });
+
+</script>
+
+{% endblock %}

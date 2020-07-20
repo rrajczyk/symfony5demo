@@ -1,0 +1,54 @@
+
+<div class="border-bottom py-2 {% if loop.index is divisible by(2) %}bg-light{% else %}odd{% endif %}">
+
+    <div class="row">
+        <div class="col-md-2 pt-2 ">
+            <a href="{{ eventPhoto1( event ) }}" class="nodecoration" >
+                <img src="{{ eventPhoto1( event ) }}" width="150" alt="" class="img-fluid">
+            </a>
+        </div>
+        <div class="col-md-8 pt-2 ">
+            <div class="module-title">
+                {{ event.title }}
+            </div>
+            <div class="row">
+                <div class="col-3">{{ event.user.name }}<br>{{ eventPhone(event) }}<br>{{ event.dateCreated|date("d-m-Y H:i") }}</div>
+                <div class="col-3">{{ event.priority.name|trans  }}<br>{{ event.status.name|trans }}</div>
+            </div>
+        </div>
+        <div class="col-md-2 pt-2 text-right">
+            <a href="{{ path ("_event", {eventId: event.id, page:"main" }) }}" class="nodecoration"><span class="btn btn-dark   btn-block my-1">{{ "Szczegóły"|trans }}</span></a>
+
+            <a href="{{ path ("_admin_edit_event", {eventId: event.id  }) }}"><span class="btn btn-dark   btn-block my-1">{{ "Edycja"|trans }}</span></a>
+
+            {% if ( event.deleted == 0 ) %}
+                <a href="{{ path ("_admin_event_delete", {eventId: event.id, fooRoute: fooRoute, fooId: fooId, confirm: 1  }) }}" class="nodecoration" onclick="return confirm('Na pewno Skasować?')"><span class="btn btn-warning btn-block my-1">{{ "Skasuj"|trans }}</span></a>
+            {% else %}
+                <a href="{{ path ("_admin_event_delete", {eventId: event.id, fooRoute: fooRoute, fooId: fooId, confirm: 0 }) }}" class="nodecoration" onclick="return confirm('Na pewno Przywrócić ?')"><span class="btn btn-warning btn-block my-1">{{ "Przywróć"|trans }}</span></a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 py-3">
+            {{ event.description }}
+        </div>
+    </div>
+
+    <div class="row ">
+        {% if event.lastCommentUser %}
+            <div class="col-md-1 pt-2 border-top">
+                 <img src="{{ eventLastCommentUser( event ) }}" class="img-fluid" width="120" alt="">
+            </div>
+            <div class="col-md-9 pt-2 border-top"><div><small>{{ event.user.name }} {{ event.lastCommentDate|date("d-m-Y H:i")}}</small></div><div class="border bg-white">{{ event.lastCommentText }}</div></div>
+            <div class="col-md-2">
+                <a href="{{ path ("_event", {eventId: event.id, page:"addcomment" }) }}"><span class="btn btn-dark  m-2">{{ "Dodaj Komentarz"|trans }}</span></a>
+            </div>
+        {% else %}
+            <div class="col-md-1 pt-2"></div>
+            <div class="col-md-9 pt-2 border bg-white">{{ "Brak komentarzy"|trans }}</div>
+            <div class="col-md-2">
+                <a href="{{ path ("_event", {eventId: event.id, page:"addcomment" }) }}"><span class="btn btn-dark  m-2">{{ "Dodaj Komentarz"|trans }}</span></a>
+            </div>
+        {% endif %}
+    </div>
+</div>

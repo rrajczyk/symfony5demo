@@ -1,0 +1,64 @@
+{% extends "layout_none.html.twig" %}
+
+{% block content %}
+
+    <div class="my-3 pb-5">
+
+        <div class="row border-bottom py-2 bg-dark">
+            <div class="col-2">
+                {{ "Zdjęcie"|trans }}
+            </div>
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-3">{{ "Data"|trans }}</div>
+                    <div class="col-7">{{ "Status"|trans }}</div>
+                    <div class="col-2">{{ "Opcje"|trans }}</div>
+                </div>
+            </div>
+        </div>
+
+        {% if events|length == 0 %}
+
+            <div class="py-3 my-3 border-top border-bottom text-center">{{ "Brak wydarzeń"|trans }}</div>
+
+        {% endif %}
+
+        {% if events %}
+            <div class="py-3 navigation ajax-conservatorevents">
+                {{ knp_pagination_render(events) }}
+            </div>
+        {% endif %}
+
+        {% for event in events %}
+            <div class="border-bottom py-2 {% if loop.index is divisible by(2) %}bg-light{% else %}odd{% endif %}">
+
+                {% include '/event/eventlist.html.twig' with {'event': event} %}
+
+            </div>
+        {% endfor %}
+
+        {% if events %}
+            <div class="py-3 navigation ajax-conservatorevents">
+                {{ knp_pagination_render(events) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <input type="hidden" value="{{ page }}" id="page"/>
+
+<script language = "javascript">
+
+  $(document).ready(function(){
+
+        $("ul.pagination a").on("click", function( e ){
+
+            var pageNum = $(this).data("page");
+            $('#page').val(pageNum);
+
+            ReloadConversatorEvents();
+            e.preventDefault();
+        });
+  });
+
+</script>
+{% endblock %}

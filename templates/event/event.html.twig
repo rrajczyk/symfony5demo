@@ -1,0 +1,160 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="text-center p-5 module-news">
+        <h1>{{ event.title }}</h1>
+    </div>
+
+    <div class="py-3 border-top border-bottom">
+        <div class="row">
+            <div class="col">
+                <a href="javascript:history.back()"><span class="btn btn-dark">{{ "Powrót"|trans }}</span></a>
+            </div>
+            <div class="col"></div>
+            <div class="col text-right">
+            </div>
+        </div>
+    </div>
+
+     <div class="my-3">
+
+        <div class="row border-top border-bottom py-2 my-2 bg-dark">
+            <div class="col-2 smallHide">
+                {{ "Zdjęcie"|trans }}
+            </div>
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-3">{{ "Data"|trans }}</div>
+                    <div class="col-3">{{ "Status"|trans }}</div>
+                    <div class="col-2"></div>
+                    <div class="col-2"></div>
+                    <div class="col-2">{{ "Opcje"|trans }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <a href="{{ eventPhoto1( event ) }}" class="nodecoration" >
+                    <img src="{{ eventPhoto1( event ) }}" width="150" alt="" class="img-fluid ">
+                </a>
+            </div>
+            <div class="col-md-10">
+
+                <div class="row">
+
+                    <div class="col-3">{{ event.user.name }}<br>{{ eventPhone(event) }}<br>{{ event.dateCreated|date("d-m-Y H:i") }}</div>
+                    <div class="col-3">{{ event.priority.name|trans }}<br>{{ event.status.name|trans }}</div>
+                    <div class="col-2">
+                    </div>
+                    <div class="col-2">
+                    </div>
+
+                    <div class="col-md-2">
+                        {% if ((app.user.userType.id == 1)) %}
+                            <a href="{{ path ("_admin_edit_event", {eventId: event.id  }) }}"><span class="btn btn-dark btn-block my-1">{{ "Edycja"|trans }}</span></a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 py-3">
+                        {{ event.description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center p-3 module-news border-bottom">
+        <h1>{{ "Komentarze"|trans }}</h1>
+    </div>
+
+    <div class="my-3">
+        {% if eventComments|length == 0 %}
+            <div class="py-3 border-top border-bottom text-center">{{ "Brak komentarzy"|trans }}</div>
+        {% else %}
+            {% for eventComment in eventComments %}
+                <div class="border-bottom py-2 {% if loop.index is divisible by(2) %}bg-light{% else %}odd{% endif %}">
+
+                    <div class="row">
+                        <div class="col-md-1 pt-2 "><img src="{{ eventCommentUser( eventComment ) }}" class="img-fluid " width="120" alt=""></div>
+                        <div class="col-md-9 pt-2 "><div><small>{{ eventComment.user.name }} {{ eventComment.dateCreated|date("d-m-Y H:i") }}</small></div><div class="border bg-white">{{ eventComment.description }}</div></div>
+                        <div class="col-md-2 ">
+                            <a href="{{ eventCommentPhoto( eventComment ) }}" class="nodecoration" >
+                                <img src="{{ eventCommentPhoto( eventComment ) }}" class="img-fluid" width="150" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="text-center p-3 module-news" id="addcomment">
+        <h1>{{ "Dodaj Komentarz"|trans }}</h1>
+    </div>
+
+{{ form_start(form) }}
+    <div class="py-3 border-top border-bottom">
+        <div class="row">
+            <div class="col">
+                <a href="javascript:history.back()"><span class="btn btn-dark">{{ "Powrót"|trans }}</span></a>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col text-right">
+                <button type="submit" class="btn btn-warning">{{ "Dodaj"|trans }}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pb-5">
+        <div class="row my-4">
+            <div class="col-4 text-right">
+                   {{ "Komentarz"|trans }}
+            </div>
+            <div class="col-8">
+                  {{ form_widget(form.description) }}
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-4 text-right">
+                   {{ "Zdjęcie"|trans }}
+            </div>
+            <div class="col-8">
+                    {{ form_errors (form.photo1) }}
+                  {{ form_widget(form.photo1) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="py-3 border-top border-bottom">
+        <div class="row">
+            <div class="col">
+                <a href="javascript:history.back()"><span class="btn btn-dark ">{{ "Powrót"|trans }}</span></a>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col text-right">
+            </div>
+        </div>
+    </div>
+{{ form_end(form) }}
+
+
+<script>
+	{% if page %}
+
+		window.location.hash = "{{ page }}";
+
+	{% endif %}
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layout_none.html.twig" %}
+
+{% block content %}
+
+    {% if logs|length != 0 %}
+        <div class="py-3 navigation">
+            {{ knp_pagination_render(logs) }}
+        </div>
+    {% endif %}
+
+    <div class="my-3 pb-5">
+        {% if logs|length == 0 %}
+            <div class="py-3 border-top border-bottom text-center">Brak Logów</div>
+        {% else %}
+            {% for log  in logs %}
+
+                <div class="border-bottom py-2 {% if loop.index is divisible by(2) %}bg-light{% else %}odd{% endif %}">
+
+                    <div class="row">
+                        <div class="col-1 pt-2 "><img src="{{ userAvatar( log.user ) }}" class="img-fluid" alt=""></div>
+                        <div class="col-2 pt-2 "> {{ log.user.name }}<br><small>{{ log.dateCreated|date("d-m-Y H:i") }}</small></div>
+                        <div class="col-4 pt-2 ">{{ log.actionInfo|trans }} </div>
+                        <div class="col-4 pt-2 ">{{ logLink(log.actionName, log.actionValue, log.actionTitle )|raw }} </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {% if logs|length != 0 %}
+        <div class="py-3 navigation">
+            {{ knp_pagination_render(logs) }}
+        </div>
+    {% endif %}
+
+    <input type="hidden" value="{{ page }}" id="page"/>
+
+<script language = "javascript">
+
+  $(document).ready(function(){
+
+        $("ul.pagination a").on("click", function( e ){
+
+            var pageNum = $(this).data("page");
+            $('#page').val(pageNum);
+
+            ReloadAdminLogs();
+            e.preventDefault();
+        });
+  });
+
+</script>
+
+{% endblock %}

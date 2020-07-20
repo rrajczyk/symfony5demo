@@ -1,0 +1,60 @@
+{% extends "layout_admin.html.twig" %}
+
+{% block titletop %}
+    {{ conservator.name }}
+{% endblock %}
+{% block content %}
+
+    <div class="py-3 border-bottom">
+        {% include '/line_back_none_menu.html.twig' %}
+    </div>
+
+    <div class="module-title">
+        {{ "Wydarzenia"|trans }}
+    </div>
+
+     <div class="py-3 border-top">
+        <div class="row">
+            <div class="col-md-4">
+                <small>{{ "Skasowane"|trans }}</small>
+                <select id="deleted" class= "form-control reload" style="width:100%; min-height:40px;">
+                    <option value="0">{{ "Nie"|trans }}</option>
+                    <option value="1">{{ "Tak"|trans }}</option>
+                    <option value="all">{{ "Wszystkie"|trans }}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <small>{{ "Sortowanie"|trans }}</small>
+                <select id="sort" class= "form-control reload" style="width:100%; min-height:40px;">
+                    <option value="last">{{ "Ostatnie"|trans }}</option>
+                    <option value="priority_hight">{{ "Najważniejszy Priorytet"|trans }}</option>
+                    <option value="priority_low">{{ "Najniższy Priorytet"|trans }}</option>
+                </select>
+               <input id="conservator" type="hidden" value="{{ conservator.id }}"/>
+            </div>
+        </div>
+    </div>
+
+    {% include '/others/spinner.html.twig'  %}
+
+    <div class="" id="eventsList">
+
+    </div>
+
+    <div class="py-3 border-top border-bottom">
+        {% include '/line_back_none_menu.html.twig' %}
+    </div>
+
+   <input id="fooRoute" type="hidden" value="conservatordetails">
+   <input id="fooId" type="hidden" value="{{ conservator.id }}">
+
+<script language = "javascript">
+  $(document).ready(function(){
+        ReloadAdminConserwatorEvents();
+
+        $(".reload").on("change", function( e ){
+            ReloadAdminConserwatorEvents();
+        });
+  });
+</script>
+{% endblock %}

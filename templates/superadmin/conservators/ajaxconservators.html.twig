@@ -1,0 +1,80 @@
+{% extends "layout_none.html.twig" %}
+
+{% block content %}
+
+    {% if conservators|length != 0 %}
+        <div class="py-3 navigation">
+            {{ knp_pagination_render(conservators) }}
+        </div>
+    {% endif %}
+
+    <div class="my-3 pb-5">
+        {% if conservators|length == 0 %}
+            <div class="py-3 border-top border-bottom text-center">{{ "Brak Użytkowników"|trans }}</div>
+        {% else %}
+            {% for conservatorArr in conservators %}
+
+                {% set conservator = conservatorArr[0] %}
+                {% set eventsDonecount = conservatorArr['eventsCount'] %}
+
+                <div class="border-bottom py-2 {% if loop.index is divisible by(2) %}bg-light{% else %}odd{% endif %}">
+
+                    <div class="row">
+                        <div class="col-md-2 pt-2 "><img src="{{ userAvatar( conservator ) }}" class="img-fluid" alt=""></div>
+                        <div class="col-md-8 pt-2 ">
+                            <div class="module-title">
+                                {{ conservator.name }}
+                            </div>
+                            <div class=""> <small>{{ conservator.address }}</small></div>
+                            <div class="row">
+                                <div class="col pt-2 ">
+                                    <div class=" pt-2 ">{{ "Login"|trans }}: {{ conservator.username }}</div>
+                                    <div class=" pt-2 ">{{ "Emails"|trans }}: {{ conservator.emails }}</div>
+                                    <div class=" pt-2 ">{{ "Telefon"|trans }}: {{ conservator.phone }}</div>
+                                    <div class=" pt-2 ">{{ "Dodano"|trans }}: {% if conservator.dateCreated %} {{ conservator.dateCreated|date("d-m-Y H:i") }}  {% endif %}</div>
+                                    <div class=" pt-2 ">{{ "Ostatnie logowanie"|trans }}: {% if conservator.dateLogin %} {{ conservator.dateLogin|date("d-m-Y H:i") }} {% endif %}</div>
+                                </div>
+                                <div class="col pt-2 ">
+                                    <div class=" pt-2 "></div>
+                                    <div class=" pt-2 ">{{ "Wydarzenia"|trans }}: {{ eventsDonecount }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 pt-2 text-right">
+                            <a href="{{ path ("_superadmin_conservator_edit", {conservator: conservator.id  } ) }}" class="nodecoration"><span class="btn btn-dark  btn-block my-1">{{ "Edycja"|trans }}</span></a>
+                            <a href="{{ path ("_superadmin_conservator_details", {conservator: conservator.id  } ) }}" class="nodecoration" ><span class="btn btn-dark  btn-block my-1">{{ "Szczegóły"|trans }}</span></a>
+                            <a href="{{ path ("_superadmin_conservator_delete", {conservator: conservator.id }) }}" class="nodecoration" onclick="return confirm('Na pewno Skasować ?')"><span class="btn btn-warning btn-block my-1">{{ "Skasuj"|trans }}</span></a>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {% if conservators|length != 0 %}
+        <div class="py-3 navigation">
+            {{ knp_pagination_render(conservators) }}
+        </div>
+    {% endif %}
+
+    <input type="hidden" value="{{ page }}" id="page"/>
+
+
+<script language = "javascript">
+
+  $(document).ready(function(){
+
+        $("ul.pagination a").on("click", function( e ){
+
+            var pageNum = $(this).data("page");
+            $('#page').val(pageNum);
+
+            ReloadAdminDepartmentEvents();
+            e.preventDefault();
+        });
+  });
+
+</script>
+
+{% endblock %}

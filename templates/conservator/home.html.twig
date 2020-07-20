@@ -1,0 +1,58 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="text-center p-3 module-news">
+        <h1>{{ user.name }}</h1>
+    </div>
+
+    <div class="py-3 border-top border-bottom">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+            <div class="col text-right">
+                <a href="{{ path ("_conservator_add_event") }}"><span class="btn btn-warning">{{ "Dodaj Wydarzenie"|trans }}</span></a>
+            </div>
+        </div>
+    </div>
+
+     <div class="py-3">
+        <div class="row">
+            <div class="col-md">
+                {{ "Sortowanie"|trans }}
+                <select id="sort" class= "form-control reload" style="width:100%; min-height:40px;">
+                    <option value="last">{{ "Ostatnie"|trans }}</option>
+                    <option value="priority_hight">{{ "Najważniejszy Priorytet"|trans }}</option>
+                    <option value="priority_low">{{ "Najniższy Priorytet"|trans }}</option>
+                </select>
+            </div>
+            <div class="col-md">
+            </div>
+            <div class="col-md">
+            </div>
+            <div class="col-md">
+            </div>
+        </div>
+    </div>
+
+    {% include '/others/spinner.html.twig'  %}
+
+    <div class="my-3 pb-5" id="eventsList">
+
+    </div>
+
+<script language = "javascript">
+      $(document).ready(function(){
+            ReloadConversatorEvents();
+
+            $(".reload").on("change", function( e ){
+
+               ReloadConversatorEvents();
+            });
+
+      });
+   </script>
+
+{% endblock %}

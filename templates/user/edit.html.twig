@@ -1,0 +1,42 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="text-center p-5 module-news">
+        <h1>{{ user.name }}</h1>
+    </div>
+
+{{ form_start(form) }}
+    <div class="py-3 border-top border-bottom">
+        {% include '/line_back_save_menu.html.twig' %}
+    </div>
+
+    <div class="pb-5">
+
+        <div class="row my-4">
+            <div class="col-2 text-center">
+                <img src="{{ userAvatar( app.user ) }}" class="img-fluid"   alt="">
+                <br>
+                {% if app.user.avatarFilename %}
+                    <a href="{{ path ("_user_remove_avatar" ) }}" class="nodecoration" onclick="return confirm('Na pewno skasować ?')">
+                        <span class="btn btn-warning btn-block my-1">Skasuj</span>
+                    </a>
+                {% endif %}
+
+            </div>
+            <div class="col-2 text-right">
+                {{ "Zdjęcie"|trans }}
+            </div>
+            <div class="col-8">
+                {{ form_errors (form.avatar) }}
+                {{ form_widget(form.avatar) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="py-3 border-top border-bottom">
+        {% include '/line_back_save_menu.html.twig' %}
+    </div>
+{{ form_end(form) }}
+
+{% endblock %}

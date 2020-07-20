@@ -1,0 +1,63 @@
+ <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>{% block title %}Devmode Demo{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <script language = "javascript" src = "https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+        <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{{ asset('css/main.css') }}" rel="stylesheet"/>
+        <script language = "javascript" src = "{{ asset('js/main.js') }}" ></script>
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+
+	<div class="container" id="main">
+
+        <div class="row">
+            <div class="col-4">
+                <a href="{{ path ("_default_home") }}"><img src="{{  asset('images/logo.png')  }}" class="img-fluid " alt="scanmed" style="height: 88px;" ></a>
+            </div>
+            <div class="col-md-8 text-right py-4">
+                {% include '/top_right_menu.html.twig' %}
+            </div>
+        </div>
+
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success">
+                {{ flashMessage|trans }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-error">
+                {{ flashMessage|trans }}
+            </div>
+        {% endfor %}
+
+        <div class="row border-top">
+            <div class="col">
+				{% block content %}{% endblock %}
+			</div>
+        </div>
+
+        <div class="row my-5">
+            <div class="col py-3">
+                &copy; Devmode Robert Rajczyk
+			</div>
+            <div class="col text-center">
+				<a href="{{ path ("_default_home") }}"><img src="{{  asset('images/logo_bottom.png')  }}" class="img-fluid" alt="scanmed" style="height: 50px;" ></a>
+			</div>
+            <div class="col">
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% block content %}
+
+    <div class="text-center mt-6 module-news"></div>
+
+    <div class=" mt-2">
+        <div class="mt-2">
+           <a href="{{ path ("_superadmin_home") }}" class="nodecoration"><span class="btn btn-dark btn-block my-1">{{ "Główna"|trans }}</span></a>
+        </div>
+        <div class="mt-2">
+           <a href="{{ path ("_superadmin_edit") }}" class="nodecoration"><span class="btn btn-dark btn-block my-1">{{ "Edycja profilu"|trans }}</span></a>
+        </div>
+        <div class="mt-2">
+           <a href="{{ path ("_superadmin_conservators") }}" class="nodecoration"><span class="btn btn-dark btn-block my-1">{{ "Użytkownicy"|trans }}</span></a>
+        </div>
+        <div class="mt-2">
+           <a href="{{ path ("_admin_events") }}" class="nodecoration"><span class="btn btn-dark btn-block my-1">{{ "Wydarzenia"|trans }}</span></a>
+        </div>
+        <div class="mt-2">
+           <a href="{{ path ("_superadmin_admins") }}" class="nodecoration"><span class="btn btn-dark btn-block my-1">{{ "Admnistratorzy"|trans }}</span></a>
+        </div>
+        <div class="mt-2">
+           <a href="{{ path ("_superadmin_logs") }}" class="nodecoration"><span class="btn btn-dark btn-block my-1">{{ "Logi"|trans }}</span></a>
+        </div>
+    </div>
+
+{% endblock %}
