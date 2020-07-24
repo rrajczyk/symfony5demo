@@ -138,30 +138,36 @@ class AdminEventController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()){
+            if ($form->isValid()){
 
-            $task = $form->getData();
+                $task = $form->getData();
 
-            /** @var UploadedFile $brochureFile */
-            $photo1File = $form['photo1']->getData();
-            if ($photo1File) {
-                $photo1FileName = $fileUploader->upload($photo1File);
-                $event->setPhoto1Filename($photo1FileName);
+                /** @var UploadedFile $brochureFile */
+                $photo1File = $form['photo1']->getData();
+                if ($photo1File) {
+                    $photo1FileName = $fileUploader->upload($photo1File);
+                    $event->setPhoto1Filename($photo1FileName);
+                }
+
+                $this->em->persist($event);
+                $this->em->flush();
+
+                $logger->setLog( $this->user, 'event', $event->getId(), 'Zaktualizowano wydarzenie', $event->getTitle());
+
+                $this->addFlash(
+                    'success',
+                    $messageGenerator->getMessage()
+                );
+
+            } else {
+
+                $this->addFlash(
+                    'error',
+                    $form->getErrors(true)
+                );
             }
-
-            $this->em->persist($event);
-            $this->em->flush();
-
-            $logger->setLog( $this->user, 'event', $event->getId(), 'Zaktualizowano wydarzenie', $event->getTitle());
-
-            $this->addFlash(
-                'success',
-                $messageGenerator->getMessage()
-            );
-
-            //return $this->redirectToRoute('_user_edit');
         }
-
         return $this->render('admin/events/editevent.html.twig', [
             'event' => $event,
             'form' => $form->createView(),

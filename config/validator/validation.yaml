@@ -1,0 +1,21 @@
+App\Entity\Events:
+    properties:
+        title:
+            - Length:
+                min: 3
+                max: 255
+                minMessage: 'Ta wartość jest zbyt krótka. Powinna mieć {{ limit }} lub więcej znaków. '
+                maxMessage: 'Ta wartość jest zbyt długa. Powinna mieć {{ limit }} lub mniej znaków'
+                allowEmptyString: false
+App\Entity\Users:
+    properties:
+        name:
+            - Length:
+                min: 3
+                max: 255
+                minMessage: 'Ta wartość jest zbyt krótka. Powinna mieć {{ limit }} lub więcej znaków. '
+                maxMessage: 'Ta wartość jest zbyt długa. Powinna mieć {{ limit }} lub mniej znaków'
+                allowEmptyString: false
+        emails:
+            - Email:
+                message: Ta wartość nie jest prawidłowym adresem email.

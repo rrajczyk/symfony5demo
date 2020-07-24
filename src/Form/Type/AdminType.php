@@ -28,7 +28,7 @@ class AdminType extends AbstractType
             //->add('pass', TextType::class, [ 'required'=>false, 'mapped' => false, 'attr' => array('class' => 'form-control', 'style' => 'width:100%;' )])
             ->add('pass', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Pola hasła muszą być zgodne',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => false,
                 'mapped' => false,

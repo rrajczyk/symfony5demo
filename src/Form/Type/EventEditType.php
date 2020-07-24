@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
 
 use Doctrine\ORM\EntityRepository;
 use App\Entity\Events;
@@ -21,7 +22,10 @@ class EventEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, [ 'attr' => array('class' => 'form-control', 'style' => 'width:100%;' )])
+            ->add('title', TextType::class, [
+                'attr' => array('class' => 'form-control', 'style' => 'width:100%;' ),
+                'constraints' => [new Length([ 'max' => 50 ])]
+                ])
             ->add('description', null, [ 'attr' => array('class' => 'form-control', 'style' => 'width:100%; min-height:150px;' )])
             ->add('phone', TextType::class, [ 'required' => false, 'attr' => array('class' => 'form-control', 'style' => 'width:100%;' )])
             ->add('priority', null, [ 'attr' => array('class' => 'form-control', 'style' => 'width:100%; min-height:40px;' )])

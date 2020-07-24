@@ -57,35 +57,44 @@ class AdminController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
 
-            $task = $form->getData();
+                $task = $form->getData();
 
-            $formPass = $form->get('pass')->getData();
+                $formPass = $form->get('pass')->getData();
 
-            if($formPass){
-                $encodedPassword = $encoder->encodePassword($user, $formPass );
-                $user->setPassword($encodedPassword);
+                if($formPass){
+                    $encodedPassword = $encoder->encodePassword($user, $formPass );
+                    $user->setPassword($encodedPassword);
+                }
+
+                /** @var UploadedFile $brochureFile */
+                $avatarFile = $form['avatar']->getData();
+                if ($avatarFile) {
+                    $avatarFileName = $fileUploader->upload($avatarFile);
+                    $user->setAvatarFilename($avatarFileName);
+                }
+
+                $this->em->persist($user);
+                $this->em->flush();
+
+                $logger->setLog( $this->user, 'admin', $user->getId(), 'Edytowano admina', $user->getName());
+
+                $this->addFlash(
+                    'success',
+                    'Dane zostały zaktualizowane!'
+                );
+
+                return $this->redirectToRoute('_admin_edit');
+
+            } else {
+
+                $this->addFlash(
+                    'error',
+                    $form->getErrors(true)
+                );
             }
-
-            /** @var UploadedFile $brochureFile */
-            $avatarFile = $form['avatar']->getData();
-            if ($avatarFile) {
-                $avatarFileName = $fileUploader->upload($avatarFile);
-                $user->setAvatarFilename($avatarFileName);
-            }
-
-            $this->em->persist($user);
-            $this->em->flush();
-
-            $logger->setLog( $this->user, 'admin', $user->getId(), 'Edytowano admina', $user->getName());
-
-            $this->addFlash(
-                'success',
-                'Dane zostały zaktualizowane!'
-            );
-
-            return $this->redirectToRoute('_admin_edit');
         }
 
         return $this->render('admin/edit.html.twig', [

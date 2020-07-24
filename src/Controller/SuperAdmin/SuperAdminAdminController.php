@@ -80,39 +80,48 @@ class SuperAdminAdminController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
 
-            $task = $form->getData();
+                $task = $form->getData();
 
-            $type = $this->em->getRepository(UserTypes::class)->findOneBy(array('id' => 1));
+                $type = $this->em->getRepository(UserTypes::class)->findOneBy(array('id' => 1));
 
-            $user->setUserType($type);
-            $user->setRoles(["ROLE_ADMIN"]);
-			$user->setDeleted(0);
-			$user->setDateCreated(new \DateTime('now'));
+                $user->setUserType($type);
+                $user->setRoles(["ROLE_ADMIN"]);
+                $user->setDeleted(0);
+                $user->setDateCreated(new \DateTime('now'));
 
-            $formPass = $form->get('pass')->getData();
-            $encodedPassword = $encoder->encodePassword($user, $formPass );
-            $user->setPassword($encodedPassword);
+                $formPass = $form->get('pass')->getData();
+                $encodedPassword = $encoder->encodePassword($user, $formPass );
+                $user->setPassword($encodedPassword);
 
-            /** @var UploadedFile $brochureFile */
-            $avatarFile = $form['avatar']->getData();
-            if ($avatarFile) {
-                $avatarFileName = $fileUploader->upload($avatarFile);
-                $user->setAvatarFilename($avatarFileName);
+                /** @var UploadedFile $brochureFile */
+                $avatarFile = $form['avatar']->getData();
+                if ($avatarFile) {
+                    $avatarFileName = $fileUploader->upload($avatarFile);
+                    $user->setAvatarFilename($avatarFileName);
+                }
+
+                $this->em->persist($user);
+                $this->em->flush();
+
+                $logger->setLog( $this->user, 'admin', $user->getId(), 'Dodano admina', $user->getName());
+
+                $this->addFlash(
+                    'success',
+                    $messageGenerator->getMessage()
+                );
+
+                return $this->redirectToRoute('_superadmin_admins');
+
+            } else {
+
+                $this->addFlash(
+                    'error',
+                    $form->getErrors(true)
+                );
             }
-
-            $this->em->persist($user);
-            $this->em->flush();
-
-            $logger->setLog( $this->user, 'admin', $user->getId(), 'Dodano admina', $user->getName());
-
-            $this->addFlash(
-                'success',
-                $messageGenerator->getMessage()
-            );
-
-            return $this->redirectToRoute('_superadmin_admins');
         }
 
         return $this->render('superadmin/admins/addadmin.html.twig', [
@@ -134,35 +143,44 @@ class SuperAdminAdminController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
 
-            $task = $form->getData();
+                $task = $form->getData();
 
-            $formPass = $form->get('pass')->getData();
+                $formPass = $form->get('pass')->getData();
 
-            if($formPass){
-                $encodedPassword = $encoder->encodePassword($user, $formPass );
-                $user->setPassword($encodedPassword);
+                if($formPass){
+                    $encodedPassword = $encoder->encodePassword($user, $formPass );
+                    $user->setPassword($encodedPassword);
+                }
+
+                /** @var UploadedFile $brochureFile */
+                $avatarFile = $form['avatar']->getData();
+                if ($avatarFile) {
+                    $avatarFileName = $fileUploader->upload($avatarFile);
+                    $user->setAvatarFilename($avatarFileName);
+                }
+
+                $this->em->persist($user);
+                $this->em->flush();
+
+                $logger->setLog( $this->user, 'admin', $user->getId(), 'Edytowano admina', $user->getName());
+
+                $this->addFlash(
+                    'success',
+                    $messageGenerator->getMessage()
+                );
+
+                return $this->redirectToRoute('_superadmin_admins');
+
+            } else {
+
+                $this->addFlash(
+                    'error',
+                    $form->getErrors(true)
+                );
             }
-
-            /** @var UploadedFile $brochureFile */
-            $avatarFile = $form['avatar']->getData();
-            if ($avatarFile) {
-                $avatarFileName = $fileUploader->upload($avatarFile);
-                $user->setAvatarFilename($avatarFileName);
-            }
-
-            $this->em->persist($user);
-            $this->em->flush();
-
-            $logger->setLog( $this->user, 'admin', $user->getId(), 'Edytowano admina', $user->getName());
-
-            $this->addFlash(
-                'success',
-                $messageGenerator->getMessage()
-            );
-
-            return $this->redirectToRoute('_superadmin_admins');
         }
 
         return $this->render('superadmin/admins/editadmin.html.twig', [
