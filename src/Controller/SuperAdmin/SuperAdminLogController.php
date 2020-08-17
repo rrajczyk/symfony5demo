@@ -3,13 +3,9 @@
 // src/Controller/AdminController.php
 namespace App\Controller\SuperAdmin;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\Logs;
 
@@ -31,7 +27,7 @@ class SuperAdminLogController extends AbstractController
     /**
      * @Route("/", name="_superadmin_logs")
      */
-    public function logs( PaginatorInterface $paginator, Request $request )
+    public function logs()
     {
         $this->init();
         $dateStart = date("Y-m-d", strtotime("first day of previous month"));

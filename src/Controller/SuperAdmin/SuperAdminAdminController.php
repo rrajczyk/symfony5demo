@@ -3,12 +3,10 @@
 // src/Controller/SuperAdminAdminController.php
 namespace App\Controller\SuperAdmin;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Service\FileUploader;
@@ -37,7 +35,7 @@ class SuperAdminAdminController extends AbstractController
     /**
      * @Route("/", name="_superadmin_admins")
      */
-    public function admins( PaginatorInterface $paginator, Request $request )
+    public function admins()
     {
         $this->init();
 
@@ -192,7 +190,7 @@ class SuperAdminAdminController extends AbstractController
     /**
      * @Route("/removeavatar/{admin}", name="_superadmin_admin_remove_avatar")
      */
-    public function removeavatar( $admin, Request $request, Logger $logger)
+    public function removeavatar( $admin, Logger $logger)
     {
         $this->init();
 
@@ -216,7 +214,7 @@ class SuperAdminAdminController extends AbstractController
     /**
      * @Route("/delete/{admin}", name="_superadmin_admin_delete")
      */
-    public function deleteadmin($admin , Request $request, Logger $logger)
+    public function deleteadmin($admin, Logger $logger)
     {
         $this->init();
 

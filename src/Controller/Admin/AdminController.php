@@ -3,18 +3,14 @@
 // src/Controller/AdminController.php
 namespace App\Controller\Admin;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Knp\Component\Pager\PaginatorInterface;
 use App\Service\FileUploader;
 use App\Service\Logger;
 use App\Entity\Users;
-use App\Entity\UserTypes;
 use App\Form\Type\AdminType;
 
 /**
@@ -106,7 +102,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/removeavatar", name="_admin_remove_avatar")
      */
-    public function removeavatar(Request $request )
+    public function removeavatar()
     {
         $this->init();
 

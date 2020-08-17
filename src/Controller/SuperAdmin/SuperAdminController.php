@@ -3,12 +3,10 @@
 // src/Controller/SuperAdminController.php
 namespace App\Controller\SuperAdmin;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Service\FileUploader;
 use App\Service\Logger;
@@ -104,7 +102,7 @@ class SuperAdminController extends AbstractController
     /**
      * @Route("/removeavatar", name="_superadmin_remove_avatar")
      */
-    public function removeavatar(Request $request )
+    public function removeavatar()
     {
         $this->init();
 

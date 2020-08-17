@@ -3,7 +3,6 @@
 // src/Controller/AdminController.php
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +33,7 @@ class ConservatorController extends AbstractController
     /**
      * @Route("/home", name="_conservator_home")
      */
-    public function home( PaginatorInterface $paginator, Request $request )
+    public function home()
     {
         $this->init();
 

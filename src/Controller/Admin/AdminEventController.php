@@ -2,22 +2,18 @@
 
 namespace App\Controller\Admin;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Service\FileUploader;
 use App\Service\Logger;
 use App\Service\MessageHappyGenerator;
-use App\Form\Type\EventCommentType;
 use App\Form\Type\EventEditType;
 use App\Entity\Users;
 use App\Entity\Events;
 use App\Entity\EventStatus;
-use App\Entity\EventComments;
 
 /**
  * @Route("/admin/events")
@@ -37,7 +33,7 @@ class AdminEventController extends AbstractController
     /**
      * @Route("/", name="_admin_events")
      */
-    public function events( PaginatorInterface $paginator, Request $request )
+    public function events()
     {
         $this->init();
 
@@ -177,7 +173,7 @@ class AdminEventController extends AbstractController
     /**
      * @Route("/deleteevent/{eventId}/{fooRoute}/{fooId}/{confirm}", name="_admin_event_delete")
      */
-    public function deleteevent($eventId, $fooRoute, $fooId, $confirm, Request $request, Logger $logger, MessageHappyGenerator $messageGenerator)
+    public function deleteevent($eventId, $fooRoute, $fooId, $confirm, Logger $logger, MessageHappyGenerator $messageGenerator)
     {
         $this->init();
 
@@ -215,7 +211,7 @@ class AdminEventController extends AbstractController
     /**
      * @Route("/removephoto/{eventId}", name="_admin_eventphoto_remove")
      */
-    public function removeeventphoto( $eventId, Request $request, Logger $logger, MessageHappyGenerator $messageGenerator)
+    public function removeeventphoto( $eventId, Logger $logger, MessageHappyGenerator $messageGenerator)
     {
         $this->init();
 

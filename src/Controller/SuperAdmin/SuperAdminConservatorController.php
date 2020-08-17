@@ -3,12 +3,10 @@
 // src/Controller/AdminController.php
 namespace App\Controller\SuperAdmin;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Service\FileUploader;
@@ -36,7 +34,7 @@ class SuperAdminConservatorController extends AbstractController
     /**
      * @Route("/", name="_superadmin_conservators")
      */
-    public function conservators( PaginatorInterface $paginator, Request $request )
+    public function conservators()
     {
         $this->init();
         $dateStart = date("Y-m-d", strtotime("first day of previous month"));
@@ -76,7 +74,7 @@ class SuperAdminConservatorController extends AbstractController
     /**
      * @Route("/conservatordetails/{conservator}", name="_superadmin_conservator_details")
      */
-    public function conservatordetails($conservator, Request $request )
+    public function conservatordetails($conservator)
     {
         $this->init();
 
@@ -239,7 +237,7 @@ class SuperAdminConservatorController extends AbstractController
     /**
      * @Route("/removeavatar/{conservator}", name="_superadmin_conservator_remove_avatar")
      */
-    public function removeavatar( $conservator, Request $request, Logger $logger)
+    public function removeavatar( $conservator, Logger $logger)
     {
         $this->init();
 
@@ -263,7 +261,7 @@ class SuperAdminConservatorController extends AbstractController
     /**
      * @Route("/delete/{conservator}", name="_superadmin_conservator_delete")
      */
-    public function deleteconservator($conservator , Request $request, Logger $logger)
+    public function deleteconservator($conservator, Logger $logger)
     {
         $this->init();
 

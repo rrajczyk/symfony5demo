@@ -3,11 +3,9 @@
 // src/Controller/AdminController.php
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Service\FileUploader;
 use App\Service\MessageBusinessGenerator;
@@ -79,7 +77,7 @@ class UserController extends AbstractController
     /**
      * @Route("/removeavatar", name="_user_remove_avatar")
      */
-    public function removeavatar( Request $request, Logger $logger, MessageBusinessGenerator $messageGenerator)
+    public function removeavatar(Logger $logger, MessageBusinessGenerator $messageGenerator)
     {
         $this->init();
 
